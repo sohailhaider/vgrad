@@ -52,8 +52,15 @@ namespace VGrad_Empty.Controllers
         {
             if (ModelState.IsValid)
             {
+                var existing = db.Students.Where(s => s.StudentId == student.StudentId).FirstOrDefault();
+                if(existing!=null)
+                {
+                    TempData["msg"] = "Student Record exists coresponding User";
+                    return RedirectToAction("Edit", "Students", new { id = student.StudentId });
+                }
                 db.Students.Add(student);
                 db.SaveChanges();
+                TempData["msg"] = "Student Record Created Successfully";
                 return RedirectToAction("Index");
             }
 
@@ -88,6 +95,7 @@ namespace VGrad_Empty.Controllers
             {
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["msg"] = "Student Information Updated";
                 return RedirectToAction("Index");
             }
             ViewBag.StudentId = new SelectList(db.Users, "UserId", "Name", student.StudentId);
@@ -117,6 +125,7 @@ namespace VGrad_Empty.Controllers
             Student student = db.Students.Find(id);
             db.Students.Remove(student);
             db.SaveChanges();
+            TempData["msg"] = "Student Record Deleted, Now you can delete User account!";
             return RedirectToAction("Index");
         }
 

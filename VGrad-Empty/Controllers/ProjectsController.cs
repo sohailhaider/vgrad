@@ -53,6 +53,7 @@ namespace VGrad_Empty.Controllers
             {
                 db.Projects.Add(project);
                 db.SaveChanges();
+                TempData["msg"] = "Project Created Successfully";
                 return RedirectToAction("Index");
             }
 
@@ -85,6 +86,7 @@ namespace VGrad_Empty.Controllers
             {
                 db.Entry(project).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["msg"] = "Project Updated Successfully";
                 return RedirectToAction("Index");
             }
             return View(project);
@@ -112,6 +114,7 @@ namespace VGrad_Empty.Controllers
         {
             Project project = db.Projects.Find(id);
             db.Projects.Remove(project);
+            TempData["msg"] = "Project Deleted Successfully";
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -127,6 +130,8 @@ namespace VGrad_Empty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddStudentToProject(StudentToProjectViewModel model)
         {
+            ViewBag.StudentID = new SelectList(db.Students.Include("Project").Where(s => s.Project == null).Select(s => new { StudentId = s.StudentId, FieldName = s.User.Name + "(" + s.User.Email + ")" }), "StudentId", "FieldName");
+            ViewBag.ProjectID = new SelectList(db.Projects.Where(s => s.GroupMembers.Count <= 4).Select(s => new { ProjectId = s.ProjectId, FieldName = s.Title + "(Project-ID: " + s.ProjectId + ")" }), "ProjectId", "FieldName");
             if (ModelState.IsValid)
             {
                 //db.Projects.Add(model);
@@ -159,6 +164,39 @@ namespace VGrad_Empty.Controllers
                 return RedirectToAction("Index");
             }
             return View(model);
+        }
+
+        public ActionResult RemoveStudent(StudentToProjectViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var Project = db.Projects.Include("GroupMembers").Where(s => s.ProjectId == model.ProjectID).FirstOrDefault();
+                if (Project == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid Project Selection");
+                    TempData["msg"] = "Invalid Project Selection";
+                    return RedirectToAction("Index");
+                }
+                var Student = db.Students.Where(s => s.StudentId == model.StudentID).FirstOrDefault();
+                if (Student == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid Student Selection");
+                    TempData["msg"] = "Invalid Student Selection";
+                    return RedirectToAction("Index");
+                }
+                var exists = Project.GroupMembers.Where(s => s.StudentId == Student.StudentId).FirstOrDefault();
+                if (exists == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Student is already in this Project");
+                    TempData["msg"] = "Student is already in this Project";
+                    return RedirectToAction("Index");
+                }
+                Project.GroupMembers.Remove(exists);
+                db.SaveChanges();
+                TempData["msg"] = "Student Removed From Project";
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

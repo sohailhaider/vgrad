@@ -61,6 +61,7 @@ namespace VGrad_Empty.Controllers
                 user.Password = MD5Hasher.Encrypt(user.Password, "vgrad");
                 db.Users.Add(user);
                 db.SaveChanges();
+                TempData["msg"] = "User Created";
                 return RedirectToAction("Index");
             }
 
