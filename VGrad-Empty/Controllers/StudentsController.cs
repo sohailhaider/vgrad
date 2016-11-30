@@ -17,6 +17,15 @@ namespace VGrad_Empty.Controllers
         // GET: Students
         public ActionResult Index()
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             var students = db.Students.Include(s => s.User);
             return View(students.ToList());
         }
@@ -24,6 +33,15 @@ namespace VGrad_Empty.Controllers
         // GET: Students/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +57,15 @@ namespace VGrad_Empty.Controllers
         // GET: Students/Create
         public ActionResult Create()
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             ViewBag.StudentId = new SelectList(db.Users.Where(s=>s.Type == UserType.Student).Select(s=>new { UserId = s.UserId, FieldName = s.Name + "(" + s.Email + ")"}), "UserId", "FieldName");
             return View();
         }
@@ -50,6 +77,15 @@ namespace VGrad_Empty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "StudentId,Batch,GraduationDate,ContactNumber,Employeement")] Student student)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             if (ModelState.IsValid)
             {
                 var existing = db.Students.Where(s => s.StudentId == student.StudentId).FirstOrDefault();
@@ -71,6 +107,15 @@ namespace VGrad_Empty.Controllers
         // GET: Students/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -91,6 +136,15 @@ namespace VGrad_Empty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "StudentId,Batch,GraduationDate,ContactNumber,Employeement")] Student student)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(student).State = EntityState.Modified;
@@ -105,6 +159,15 @@ namespace VGrad_Empty.Controllers
         // GET: Students/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -122,6 +185,15 @@ namespace VGrad_Empty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             Student student = db.Students.Find(id);
             db.Students.Remove(student);
             db.SaveChanges();

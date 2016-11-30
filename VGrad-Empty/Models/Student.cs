@@ -9,6 +9,12 @@ namespace VGrad_Empty.Models
 {
     public class Student
     {
+        public Student()
+        {
+            OtherProjects = new List<OtherProject>();
+            Educations = new List<Education>();
+
+        }
         [Key, ForeignKey("User")]
         [Display(Name ="User Account")]
         public int StudentId { get; set; }
@@ -28,5 +34,8 @@ namespace VGrad_Empty.Models
 
         public virtual User User { get; set; }
         public Project Project { get; set; }
+        public BasicInformation BasicInformation { get; set; }
+        public List<OtherProject> OtherProjects { get; set; }
+        public List<Education> Educations { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using VGrad_Empty.Models
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -78,10 +79,7 @@
                                     </li>
                                     <li class="divider"></li>
                                     <li>
-                                        <a href="#"><i class="mdi-action-lock-outline"></i>Lock</a>
-                                    </li>
-                                    <li>
-                                        <a href="~/login/logout"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
+                                        <a href="~/Home/Logout"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
                                     </li>
                                 </ul>
                                 <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">@Session["UserName"]<i class="mdi-navigation-arrow-drop-down right"></i></a>
@@ -92,77 +90,73 @@
                     <li class="bold">
                         <a href="~/" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> Dashboard</a>
                     </li>
-                    <li class="bold">
-                        <a class="waves-effect waves-cyan"><i class="mdi-communication-email"></i> Upgrade Requests <span class="new badge">4</span></a>
-                    </li>
-                    <li class="bold">
-                        <a class="waves-effect waves-cyan"><i class="mdi-maps-rate-review"></i>Project Reviews<span class="new badge">10</span></a>
-                    </li>
-                    <li class="no-padding">
-                        <ul class="collapsible collapsible-accordion">
-                            <li class="bold">
-                                <a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-people-outline"></i> Users</a>
-                                <div class="collapsible-body">
-                                    <ul>
-                                        <li>
-                                            @Html.ActionLink("Add New", "Create", "Users")
-                                        </li>
-                                        <li>
-                                            @Html.ActionLink("View Users", "Index", "Users")
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="no-padding">
-                        <ul class="collapsible collapsible-accordion">
-                            <li class="bold">
-                                <a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-school"></i>Students</a>
-                                <div class="collapsible-body">
-                                    <ul>
-                                        <li>
-                                            @Html.ActionLink("Add New", "Create", "Students")
-                                        </li>
-                                        <li>
-                                            @Html.ActionLink("View Existing", "Index", "Students")
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="no-padding">
-                        <ul class="collapsible collapsible-accordion">
-                            <li class="bold">
-                                <a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-receipt"></i>Projects</a>
-                                <div class="collapsible-body">
-                                    <ul>
-                                        <li>
-                                            @Html.ActionLink("Add New", "Create", "Projects")
-                                        </li>
-                                        <li>
-                                            @Html.ActionLink("View All Projects", "Index", "Projects")
-                                        </li>
-                                        <li>
-                                            @Html.ActionLink("Assign Project", "AddStudentToProject", "Projects")
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="li-hover"><div class="divider"></div></li>
-                    <li class="li-hover"><p class="ultra-small margin more-text">MORE</p></li>
-                    <li>
-                        <a href="css-color.html"><i class="mdi-editor-format-color-fill"></i> Preferences</a>
-                    </li>
-                    <li>
-                        <a href="css-helpers.html"><i class="mdi-communication-live-help"></i> Helper</a>
-                    </li>
-                    <li>
-                        <a href="changelogs.html"><i class="mdi-action-swap-vert-circle"></i> Settings</a>
-                    </li>
+                    @if (Session["UserType"].ToString() == UserType.Administrator.ToString() || Session["UserType"].ToString() == UserType.Coordinator.ToString())
+                    {
+
+                        <li class="no-padding">
+                            <ul class="collapsible collapsible-accordion">
+                                <li class="bold">
+                                    <a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-people-outline"></i> Users</a>
+                                    <div class="collapsible-body">
+                                        <ul>
+                                            <li>
+                                                @Html.ActionLink("Add New", "Create", "Users")
+                                            </li>
+                                            <li>
+                                                @Html.ActionLink("View Users", "Index", "Users")
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="no-padding">
+                            <ul class="collapsible collapsible-accordion">
+                                <li class="bold">
+                                    <a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-school"></i>Students</a>
+                                    <div class="collapsible-body">
+                                        <ul>
+                                            <li>
+                                                @Html.ActionLink("Add New", "Create", "Students")
+                                            </li>
+                                            <li>
+                                                @Html.ActionLink("View Existing", "Index", "Students")
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="no-padding">
+                            <ul class="collapsible collapsible-accordion">
+                                <li class="bold">
+                                    <a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-receipt"></i>Projects</a>
+                                    <div class="collapsible-body">
+                                        <ul>
+                                            <li>
+                                                @Html.ActionLink("Add New", "Create", "Projects")
+                                            </li>
+                                            <li>
+                                                @Html.ActionLink("View All Projects", "Index", "Projects")
+                                            </li>
+                                            <li>
+                                                @Html.ActionLink("Assign Project", "AddStudentToProject", "Projects")
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="bold">
+                            <a href="~/Student/PersonalInformation" class="waves-effect waves-cyan"><i class="mdi-communication-email"></i> Personal Information</a>
+                        </li>
+                        <li class="bold">
+                            <a href="~/Student/Education" class="waves-effect waves-cyan"><i class="mdi-communication-email"></i> Educational Information</a>
+                        </li>
+                    }
                 </ul>
                 <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only darken-2"><i class="mdi-navigation-menu"></i></a>
             </aside>
@@ -222,7 +216,7 @@
         </div>
         <div class="footer-copyright">
             <div class="container">
-                Copyright © 2015 <a class="grey-text text-lighten-4" href="#" target="_blank">LooneyWala Developers</a> All rights reserved.
+                Copyright © 2016 <a class="grey-text text-lighten-4" href="#" target="_blank">LooneyWala Developers</a> All rights reserved.
                 <span class="right"> Developed by <a class="grey-text text-lighten-4" href="">LooneyWala Developers</a></span>
             </div>
         </div>

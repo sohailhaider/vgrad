@@ -102,7 +102,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EducationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OtherProjectsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -110,9 +112,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\BasicInformation.cs" />
     <Compile Include="Models\CustomTypes.cs" />
     <Compile Include="Models\DataContext.cs" />
+    <Compile Include="Models\Education.cs" />
     <Compile Include="Models\MD5Hasher.cs" />
+    <Compile Include="Models\OtherProject.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\User.cs" />
@@ -142,6 +147,16 @@
     <Content Include="Views\Projects\Index.cshtml" />
     <Content Include="Views\Projects\AddStudentToProject.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\OtherProjects\Create.cshtml" />
+    <Content Include="Views\OtherProjects\Delete.cshtml" />
+    <Content Include="Views\OtherProjects\Details.cshtml" />
+    <Content Include="Views\OtherProjects\Edit.cshtml" />
+    <Content Include="Views\OtherProjects\Index.cshtml" />
+    <Content Include="Views\Educations\Create.cshtml" />
+    <Content Include="Views\Educations\Delete.cshtml" />
+    <Content Include="Views\Educations\Details.cshtml" />
+    <Content Include="Views\Educations\Edit.cshtml" />
+    <Content Include="Views\Educations\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

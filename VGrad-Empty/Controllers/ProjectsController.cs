@@ -18,12 +18,30 @@ namespace VGrad_Empty.Controllers
         // GET: Projects
         public ActionResult Index()
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             return View(db.Projects.ToList());
         }
 
         // GET: Projects/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +57,15 @@ namespace VGrad_Empty.Controllers
         // GET: Projects/Create
         public ActionResult Create()
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
 
@@ -49,6 +76,15 @@ namespace VGrad_Empty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProjectId,Title,ProjectDescription,SupervisorName,Batch")] Project project)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             if (ModelState.IsValid)
             {
                 db.Projects.Add(project);
@@ -63,6 +99,15 @@ namespace VGrad_Empty.Controllers
         // GET: Projects/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -82,6 +127,15 @@ namespace VGrad_Empty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProjectId,Title,ProjectDescription,SupervisorName,Batch")] Project project)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(project).State = EntityState.Modified;
@@ -95,6 +149,15 @@ namespace VGrad_Empty.Controllers
         // GET: Projects/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -112,6 +175,15 @@ namespace VGrad_Empty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             Project project = db.Projects.Find(id);
             db.Projects.Remove(project);
             TempData["msg"] = "Project Deleted Successfully";
@@ -121,6 +193,15 @@ namespace VGrad_Empty.Controllers
 
         public ActionResult AddStudentToProject()
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             ViewBag.StudentID = new SelectList(db.Students.Include("Project").Where(s => s.Project == null).Select(s => new { StudentId = s.StudentId, FieldName = s.User.Name + "(" + s.User.Email + ")" }), "StudentId", "FieldName");
             ViewBag.ProjectID = new SelectList(db.Projects.Where(s => s.GroupMembers.Count <= 4).Select(s => new { ProjectId = s.ProjectId, FieldName = s.Title + "(Project-ID: " + s.ProjectId + ")" }), "ProjectId", "FieldName");
 
@@ -130,6 +211,15 @@ namespace VGrad_Empty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddStudentToProject(StudentToProjectViewModel model)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             ViewBag.StudentID = new SelectList(db.Students.Include("Project").Where(s => s.Project == null).Select(s => new { StudentId = s.StudentId, FieldName = s.User.Name + "(" + s.User.Email + ")" }), "StudentId", "FieldName");
             ViewBag.ProjectID = new SelectList(db.Projects.Where(s => s.GroupMembers.Count <= 4).Select(s => new { ProjectId = s.ProjectId, FieldName = s.Title + "(Project-ID: " + s.ProjectId + ")" }), "ProjectId", "FieldName");
             if (ModelState.IsValid)
@@ -168,6 +258,15 @@ namespace VGrad_Empty.Controllers
 
         public ActionResult RemoveStudent(StudentToProjectViewModel model)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
+            }
             if (ModelState.IsValid)
             {
                 var Project = db.Projects.Include("GroupMembers").Where(s => s.ProjectId == model.ProjectID).FirstOrDefault();

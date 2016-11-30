@@ -40,11 +40,11 @@ namespace VGrad_Empty.Controllers
                 switch(user.Type)
                 {
                     case UserType.Administrator:
-                        return RedirectToAction("Index", "Projects");
+                        return RedirectToAction("Index", "Users");
                     case UserType.Coordinator:
-                        return RedirectToAction("Index", "Coordinator");
+                        return RedirectToAction("Index", "Projects");
                     case UserType.Student:
-                        return RedirectToAction("Index", "StudentOperations");
+                        return RedirectToAction("Index", "Student");
                     default:
                         return RedirectToAction("");
                 }
@@ -54,6 +54,20 @@ namespace VGrad_Empty.Controllers
         public ActionResult SignUp()
         {
             return View();
+        }
+
+        public ActionResult Logout()
+        {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            Session.Remove("UserId");
+            Session.Remove("UserType");
+            Session.RemoveAll();
+            Session.Clear();
+            return RedirectToAction("Login","Home");
         }
     }
 }
