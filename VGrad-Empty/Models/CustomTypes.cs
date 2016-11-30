@@ -14,4 +14,9 @@ namespace VGrad_Empty.Models
         Coordinator,
         Student
     }
+    public enum EmployementStatus
+    {
+        Available, 
+        Employeed
+    }
 }

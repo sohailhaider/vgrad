@@ -15,7 +15,7 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">
     <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
-    <title>@ViewBag.title - V Grad</title>
+    <title>@ViewBag.title | V-Grad</title>
 
     <!-- Favicons-->
     <link rel="icon" href="~/Content/images/favicon/favicon-32x32.png" sizes="32x32">
@@ -112,7 +112,7 @@
                                 <div class="collapsible-body">
                                     <ul>
                                         <li>
-                                            @Html.ActionLink("Add New", "Add", "Users")
+                                            @Html.ActionLink("Add New", "Create", "Users")
                                         </li>
                                         <li>
                                             @Html.ActionLink("View Users", "Index", "Users")
@@ -172,7 +172,7 @@
             <section id="content">
 
                 <!--start container-->
-                <div class="container">
+                <div class="container" style="margin-bottom:100px">
                     @RenderBody()
                 </div>
                 <!--end container-->
@@ -226,16 +226,19 @@
     <script type="text/javascript" src="~/Content/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
     <script type="text/javascript" src="~/Content/js/plugins/jvectormap/vectormap-script.js"></script>
 
-
+    @{
+        var Msg = TempData["msg"];
+    }
     <!--plugins.js - Some Specific JS codes for Plugin Settings-->
     <script type="text/javascript" src="~/Content/js/plugins.js"></script>
     <!-- Toast Notification -->
     <script type="text/javascript">
     // Toast Notification
     $(window).load(function() {
-        setTimeout(function() {
-            Materialize.toast('<span>Welcome Back.</span>', 1500);
-        }, 3000);
+        var msg = '@Msg';
+        if(msg!=null && msg!="")
+            Materialize.toast('<span>'+ msg +'</span>', 5000);
+        
     });
 
     </script>
