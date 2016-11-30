@@ -20,8 +20,6 @@ namespace VGrad_Empty.Models
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        [Required]
         public UserType Type { get; set; }
         public bool Status { get; set; }
     }
