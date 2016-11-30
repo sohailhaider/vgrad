@@ -13,7 +13,15 @@ namespace VGrad_Empty.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProjectId { get; set; }
         [Required]
+        [Display(Name = "Project Title")]
         public string Title { get; set; }
+        [Required]
+        [DataType(DataType.MultilineText)]
+        [Display(Name ="Project Description")]
+        public string ProjectDescription { get; set; }
+        [Required]
+        [Display(Name = "Supervisor Name")]
+        public string SupervisorName { get; set; }
         [Required]
         public string Batch { get; set; }
         public List<Student> GroupMembers { get; set; }

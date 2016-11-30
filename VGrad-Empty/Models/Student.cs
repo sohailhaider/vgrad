@@ -25,6 +25,7 @@ namespace VGrad_Empty.Models
         [Display(Name ="Employeement Status")]
         public EmployementStatus Employeement { get; set; }
 
-        public User User { get; set; }
+        public virtual User User { get; set; }
+        public Project Project { get; set; }
     }
 }

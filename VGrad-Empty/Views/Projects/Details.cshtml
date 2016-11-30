@@ -1,0 +1,66 @@
+﻿@model VGrad_Empty.Models.Project
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Project</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SupervisorName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupervisorName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Batch)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Batch)
+        </dd>
+        @if(Model.GroupMembers!=null && Model.GroupMembers.Count > 0)
+        {
+            <dt>
+                Group Members
+            </dt>
+            <dd>
+                <ul>
+                    @foreach(var item in Model.GroupMembers)
+                    {
+                        <li style="list-style-type: circle">
+                            @item.User.Name
+                        </li>
+                    }
+                </ul>
+            </dd>
+        }
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProjectId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,13 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 
-<!--================================================================================
-    Item Name: Materialize - Material Design Admin Template
-    Version: 1.0
-    Author: GeeksLabs
-    Author URL: http://www.themeforest.net/user/geekslabs
-================================================================================ -->
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
@@ -33,7 +26,7 @@
     <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
     <link href="~/Content/js/plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="~/Content/js/plugins/jvectormap/jquery-jvectormap.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="~/Content/js/plugins/chartist-js/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+    @*<link href="~/Content/js/plugins/chartist-js/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">*@
 
 
 </head>
@@ -88,7 +81,7 @@
                                         <a href="#"><i class="mdi-action-lock-outline"></i>Lock</a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo base_url() ?>login/logout"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
+                                        <a href="~/login/logout"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
                                     </li>
                                 </ul>
                                 <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">@Session["UserName"]<i class="mdi-navigation-arrow-drop-down right"></i></a>
@@ -97,7 +90,7 @@
                         </div>
                     </li>
                     <li class="bold">
-                        <a href="<?php echo base_url() ?>" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> Dashboard</a>
+                        <a href="~/" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> Dashboard</a>
                     </li>
                     <li class="bold">
                         <a class="waves-effect waves-cyan"><i class="mdi-communication-email"></i> Upgrade Requests <span class="new badge">4</span></a>
@@ -125,7 +118,7 @@
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
                             <li class="bold">
-                                <a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-people-outline"></i>Students</a>
+                                <a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-school"></i>Students</a>
                                 <div class="collapsible-body">
                                     <ul>
                                         <li>
@@ -133,6 +126,26 @@
                                         </li>
                                         <li>
                                             @Html.ActionLink("View Existing", "Index", "Students")
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="no-padding">
+                        <ul class="collapsible collapsible-accordion">
+                            <li class="bold">
+                                <a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-receipt"></i>Projects</a>
+                                <div class="collapsible-body">
+                                    <ul>
+                                        <li>
+                                            @Html.ActionLink("Add New", "Create", "Projects")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("View All Projects", "Index", "Projects")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Assign Project", "AddStudentToProject", "Projects")
                                         </li>
                                     </ul>
                                 </div>
@@ -187,7 +200,9 @@
 
                 <!--start container-->
                 <div class="container" style="margin-bottom:100px">
-                    @RenderBody()
+                    <div class="row">
+                            @RenderBody()
+                    </div>
                 </div>
                 <!--end container-->
             </section>
@@ -225,11 +240,11 @@
 
 
     <!-- chartist -->
-    <script type="text/javascript" src="~/Content/js/plugins/chartist-js/chartist.min.js"></script>
+    @*<script type="text/javascript" src="~/Content/js/plugins/chartist-js/chartist.min.js"></script>*@
 
     <!-- chartjs -->
-    <script type="text/javascript" src="~/Content/js/plugins/chartjs/chart.min.js"></script>
-    <script type="text/javascript" src="~/Content/js/plugins/chartjs/chart-script.js"></script>
+    @*<script type="text/javascript" src="~/Content/js/plugins/chartjs/chart.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/plugins/chartjs/chart-script.js"></script>*@
 
     <!-- sparkline -->
     <script type="text/javascript" src="~/Content/js/plugins/sparkline/jquery.sparkline.min.js"></script>

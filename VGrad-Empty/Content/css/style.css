@@ -1417,6 +1417,13 @@ tr.group:hover {
 footer.page-footer {
   padding-top: 0px;
 }
+dt {
+  font-weight: bold;
+  margin-top: 10px;
+}
+dl {
+  margin-left:  30px; 
+}
 /*----------------------------------------
     footer charts
 ------------------------------------------*/
