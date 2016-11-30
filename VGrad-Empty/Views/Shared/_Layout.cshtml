@@ -117,8 +117,22 @@
                                         <li>
                                             @Html.ActionLink("View Users", "Index", "Users")
                                         </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="no-padding">
+                        <ul class="collapsible collapsible-accordion">
+                            <li class="bold">
+                                <a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-people-outline"></i>Students</a>
+                                <div class="collapsible-body">
+                                    <ul>
                                         <li>
-                                            @Html.ActionLink("Manage Rights", "Manage", "Users")
+                                            @Html.ActionLink("Add New", "Create", "Students")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("View Existing", "Index", "Students")
                                         </li>
                                     </ul>
                                 </div>

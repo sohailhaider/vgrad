@@ -98,14 +98,27 @@ namespace VGrad_Empty.Controllers
                     TempData["msg"] = "Email already registered to another user";
                     return View(user);
                 }
-                TempData["msg"] = "User Updated Successfully";
+                
                 user.Password = MD5Hasher.Encrypt(user.Password, "vgrad");
                 var usr = db.Users.Where(s => s.UserId == user.UserId).FirstOrDefault();
+                var student = db.Students.Where(s => s.StudentId == user.UserId).FirstOrDefault();
+                if (student != null)
+                {
+                    if (usr.Type==UserType.Student && user.Type!=UserType.Student)
+                    {
+                        TempData["msg"] = "Please delete corresponding student details first from student tab";
+                        return RedirectToAction("Index", "Users");
+                    }                        
+                }
+
+
+
                 usr.Name = user.Name;
                 usr.Email = user.Email;
                 usr.Password = user.Password;
                 usr.Type = user.Type;
 
+                TempData["msg"] = "User Updated Successfully";
                 //db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -133,6 +146,12 @@ namespace VGrad_Empty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            var student = db.Students.Where(s => s.StudentId == id).FirstOrDefault();
+            if(student!=null)
+            {
+                TempData["msg"] = "Please delete corresponding student details first from student tab";
+                return RedirectToAction("Index", "Users");
+            }
             TempData["msg"] = "User Deleted Successfully";
             User user = db.Users.Find(id);
             db.Users.Remove(user);
