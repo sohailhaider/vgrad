@@ -116,6 +116,7 @@
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Models\ViewModels\StudentToProjectViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -17,6 +17,7 @@ namespace VGrad_Empty.Models
         [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Graduation Date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime GraduationDate { get; set; }
         [Required]
         [DataType(DataType.PhoneNumber)]

@@ -53,6 +53,15 @@
                     {
                         <li style="list-style-type: circle">
                             @item.User.Name
+                            @using (Html.BeginForm(new { action = "RemoveStudent" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input name="StudentID" value="@item.StudentId" type="hidden" />
+                                <input name="ProjectID" value="@Model.ProjectId" type="hidden" />
+                                <div class="form-actions no-color">
+                                    <input type="submit" value="Remove" class="btn btn-default" />
+                                </div>
+                            }
                         </li>
                     }
                 </ul>
