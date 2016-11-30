@@ -11,6 +11,8 @@ namespace VGrad_Empty.Models.ViewModels
         [Required(ErrorMessage ="Provide Email Address")]
         public string Email { get; set; }
         [Required(ErrorMessage ="Please Provide Password")]
+        [Display(Name ="Password")]
+        [DataType(DataType.Password)]
         public string password { get; set; }
     }
 }
