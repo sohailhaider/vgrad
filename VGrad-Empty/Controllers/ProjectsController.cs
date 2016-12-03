@@ -57,6 +57,7 @@ namespace VGrad_Empty.Controllers
         // GET: Projects/Create
         public ActionResult Create()
         {
+
             if (Session["UserId"] == null)
             {
                 return RedirectToAction("Login", "Home");
@@ -99,15 +100,6 @@ namespace VGrad_Empty.Controllers
         // GET: Projects/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (Session["UserId"] == null)
-            {
-                return RedirectToAction("Login", "Home");
-            }
-            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
-            {
-                TempData["msg"] = "You don't have enough rights";
-                return RedirectToAction("Login", "Home");
-            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -116,6 +108,26 @@ namespace VGrad_Empty.Controllers
             if (project == null)
             {
                 return HttpNotFound();
+            }
+
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() == UserType.Student.ToString())
+            {
+                var userId = Convert.ToInt32(Session["UserId"]);
+                var user = project.GroupMembers.Where(s => s.User.UserId == userId).FirstOrDefault();
+                if (user == null)
+                {
+                    TempData["msg"] = "Sorry but you can't edit anyone else project!";
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+            else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
+            {
+                TempData["msg"] = "You don't have enough rights";
+                return RedirectToAction("Login", "Home");
             }
             return View(project);
         }
@@ -130,6 +142,16 @@ namespace VGrad_Empty.Controllers
             if (Session["UserId"] == null)
             {
                 return RedirectToAction("Login", "Home");
+            }
+            else if(Session["UserType"].ToString() == UserType.Student.ToString())
+            {
+                var userId = Convert.ToInt32(Session["UserId"]);
+                var user = project.GroupMembers.Where(s=>s.User.UserId == userId).FirstOrDefault();
+                if(user ==null)
+                {
+                    TempData["msg"] = "Sorry but you can't edit anyone else project!";
+                    return RedirectToAction("Login", "Home");
+                }
             }
             else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
             {
@@ -149,9 +171,25 @@ namespace VGrad_Empty.Controllers
         // GET: Projects/Delete/5
         public ActionResult Delete(int? id)
         {
+            Project project = db.Projects.Find(id);
+            if (project == null)
+            {
+                return HttpNotFound();
+            }
+
             if (Session["UserId"] == null)
             {
                 return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() == UserType.Student.ToString())
+            {
+                var userId = Convert.ToInt32(Session["UserId"]);
+                var user = project.GroupMembers.Where(s => s.User.UserId == userId).FirstOrDefault();
+                if (user == null)
+                {
+                    TempData["msg"] = "Sorry but you can't edit anyone else project!";
+                    return RedirectToAction("Login", "Home");
+                }
             }
             else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
             {
@@ -162,11 +200,6 @@ namespace VGrad_Empty.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
-            if (project == null)
-            {
-                return HttpNotFound();
-            }
             return View(project);
         }
 
@@ -175,16 +208,26 @@ namespace VGrad_Empty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            Project project = db.Projects.Find(id);
             if (Session["UserId"] == null)
             {
                 return RedirectToAction("Login", "Home");
+            }
+            else if (Session["UserType"].ToString() == UserType.Student.ToString())
+            {
+                var userId = Convert.ToInt32(Session["UserId"]);
+                var user = project.GroupMembers.Where(s => s.User.UserId == userId).FirstOrDefault();
+                if (user == null)
+                {
+                    TempData["msg"] = "Sorry but you can't edit anyone else project!";
+                    return RedirectToAction("Login", "Home");
+                }
             }
             else if (Session["UserType"].ToString() != UserType.Administrator.ToString() && Session["UserType"].ToString() != UserType.Coordinator.ToString())
             {
                 TempData["msg"] = "You don't have enough rights";
                 return RedirectToAction("Login", "Home");
             }
-            Project project = db.Projects.Find(id);
             db.Projects.Remove(project);
             TempData["msg"] = "Project Deleted Successfully";
             db.SaveChanges();

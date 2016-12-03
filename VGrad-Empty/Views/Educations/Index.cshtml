@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<VGrad_Empty.Models.Education>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Educational Information";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>My Educational Information</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add More", "Create", "Educations", htmlAttributes: new { @class = "btn btn-default right" })
 </p>
-<table class="table">
+<table class="tablea hoverable bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Title)

@@ -1424,9 +1424,11 @@ dt {
 dl {
   margin-left:  30px; 
 }
-text-danger {
+.text-danger {
   color: red;
+  font-size: 13px;
 }
+
 /*----------------------------------------
     footer charts
 ------------------------------------------*/

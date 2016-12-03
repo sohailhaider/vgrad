@@ -24,6 +24,6 @@ namespace VGrad_Empty.Models
         public string SupervisorName { get; set; }
         [Required]
         public string Batch { get; set; }
-        public List<Student> GroupMembers { get; set; }
+        public virtual List<Student> GroupMembers { get; set; }
     }
 }

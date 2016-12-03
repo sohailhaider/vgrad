@@ -44,7 +44,7 @@ namespace VGrad_Empty.Controllers
                     case UserType.Coordinator:
                         return RedirectToAction("Index", "Projects");
                     case UserType.Student:
-                        return RedirectToAction("Index", "Student");
+                        return RedirectToAction("Index", "Educations");
                     default:
                         return RedirectToAction("");
                 }

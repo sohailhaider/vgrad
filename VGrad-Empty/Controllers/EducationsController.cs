@@ -13,16 +13,24 @@ namespace VGrad_Empty.Controllers
     public class EducationsController : Controller
     {
         private DataContext db = new DataContext();
-
         // GET: Educations
         public ActionResult Index()
         {
-            return View(db.Educations.ToList());
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            int userId = Convert.ToInt32(Session["UserId"]);
+            return View(db.Educations.Include("Student").Where(s=>s.Student.User.UserId == userId).ToList());
         }
 
         // GET: Educations/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,6 +46,10 @@ namespace VGrad_Empty.Controllers
         // GET: Educations/Create
         public ActionResult Create()
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
 
@@ -48,9 +60,20 @@ namespace VGrad_Empty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "EducationId,Title,College,StartDate,EndDate")] Education education)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (ModelState.IsValid)
             {
-                db.Educations.Add(education);
+                int userId = Convert.ToInt32(Session["UserId"]);
+                var student = db.Students.Where(s => s.User.UserId == userId).FirstOrDefault();
+                if(student == null)
+                {
+                    TempData["msg"] = "No student information found!";
+                    return RedirectToAction("Login", "Home");
+                }
+                student.Educations.Add(education);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -61,11 +84,22 @@ namespace VGrad_Empty.Controllers
         // GET: Educations/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Education education = db.Educations.Find(id);
+            int userId = Convert.ToInt32(Session["UserId"]);
+            Education education = db.Educations.Include("Student").Where(s=>s.EducationId == id).FirstOrDefault();
+
+            if (education.Student.User.UserId != userId)
+            {
+                TempData["msg"] = "Kindly login with connected account";
+                RedirectToAction("Login", "Home");
+            }
             if (education == null)
             {
                 return HttpNotFound();
@@ -80,6 +114,10 @@ namespace VGrad_Empty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "EducationId,Title,College,StartDate,EndDate")] Education education)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(education).State = EntityState.Modified;
@@ -92,6 +130,10 @@ namespace VGrad_Empty.Controllers
         // GET: Educations/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -109,6 +151,10 @@ namespace VGrad_Empty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             Education education = db.Educations.Find(id);
             db.Educations.Remove(education);
             db.SaveChanges();
