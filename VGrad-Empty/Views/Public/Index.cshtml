@@ -1,0 +1,175 @@
+﻿@model IEnumerable<VGrad_Empty.Models.Student>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>VGrad: NU Gradudation Directory</title>
+		<meta name="description" content="VGrad: NU Gradudation Directory" />
+		<meta name="keywords" content="Graduation Directory, FAST-NUCES, FAST Fsd, Faisalabad" />
+		<link rel="stylesheet" type="text/css" href="~/Content/grid/css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="~/Content/grid/css/component.css" />
+		<script src="~/Content/grid/js/modernizr.custom.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<header class="clearfix">
+				<span>VGrad <span class="bp-icon bp-icon-about" data-content="Semester Project: This is Official Forum provided by FAST-NUCES,CFD developers."></span></span>
+                <a href='@Url.Action("Index", "Public")' style="color:inherit"><h1>NU Graduate Directory</h1></a>
+				<nav>
+                    <style>
+                        .search {
+                            font:inherit; font-size: 15px; padding: 15px; border-color:#68b6e5; border: 1px solid #68b6e5; 
+                            width: 400px;
+                        }
+                        ::-webkit-input-placeholder {
+                           color: #74c1ef;
+                           font-style: italic;
+                        }
+
+                        :-moz-placeholder { /* Firefox 18- */
+                           color: #74c1ef;
+                           font-style: italic;
+                        }
+
+                        ::-moz-placeholder {  /* Firefox 19+ */
+                           color: #74c1ef;
+                           font-style: italic;
+                        }
+
+                        :-ms-input-placeholder {  
+                           color: #74c1ef;
+                           font-style: italic;
+                        }
+                    </style>
+                    <form>
+                        <input placeholder="Search i.e. Name, Batch or Email" id="search" class="search" name="search" style="" />
+                        <input type="submit" style="display:none"/>
+                    </form>
+				</nav>
+			</header>
+
+			<div id="grid-gallery" class="grid-gallery">
+				<section class="grid-wrap">
+                    @if (ViewBag.SearchTerm != null)
+                    {
+                        <h2><u>Search Results for " @ViewBag.SearchTerm "</u></h2><br />
+                    }
+					<ul class="grid">
+						<li class="grid-sizer"></li><!-- for Masonry column width -->
+                        @{
+                            int count = 0;
+                        }
+                        @foreach (var item in Model) {
+                            if(item.BasicInformation == null)
+                            {
+                                continue;
+                            }
+                            count = 1;
+                            <li>
+                                <figure>
+                                    <img src="~/Uploads/Images/@item.BasicInformation.Image" alt="@item.User.Name" />
+                                    @{
+                                        string value = @item.BasicInformation.Introduction.ToString();
+                                    }
+                                    <figcaption><h3>@item.User.Name</h3><p>@if (value.Length <= 60)
+                                    {
+                                        @value
+                                    }
+                                    else
+                                    {
+                                        @value.Substring(0, 60).ToString()
+                                        <a href="~/Public/CV/@item.StudentId" style="color: #4a89b0"><u>Read More</u></a>
+                                    }</p></figcaption>
+                                </figure>
+                            </li>
+                        }
+						@if (count == 0)
+                        {
+                            <h2>No Record Found!</h2>
+                            <p>Ops! Seems Like we are out of Student Details</p>
+                        }
+					</ul>
+               <footer style="bottom:10px; position: fixed; width:80%;">
+                   <hr />
+                   @if (Session["UserName"] != null)
+                   {
+                       <p style="color: #74c1ef; right: 0px; float: right; font-size: 20px"><a style="color: #74c1ef; cursor:pointer;" onclick="window.location='@Url.Action("","Home")'">@Session["UserName"]</a>
+                           (<a style="color: #74c1ef; cursor:pointer;" onclick="window.location='@Url.Action("Logout","Home")'">Logout</a>)</p>
+                   }
+                   else
+                   {
+                       <a class="@Url.Action("Login","Home")" style="color: #74c1ef; cursor:pointer; right: 0px; float: right; font-size: 20px" onclick="window.location='@Url.Action("Login","Home")'">Login</a>
+                   }
+               </footer>
+                </section><!-- // grid-wrap -->
+				<section class="slideshow">
+					<ul>
+                        @foreach (var item in Model)
+                        {
+                            if (item.BasicInformation == null)
+                            {
+                                continue;
+                            }
+                            <li>
+                                <figure>
+                                    <figcaption>
+                                        <h3>@item.User.Name</h3>
+                                        <p>
+                                            <label>Introduction: </label>
+                                            @{
+                                                string value = @item.BasicInformation.Introduction.ToString();
+                                            }
+                                            <i>@if (value.Length <= 200)
+                                            {
+                                                @value
+                                            }
+                                            else
+                                            {
+                                                @value.Substring(0, 200).ToString()
+                                                <a href="~/Public/CV/@item.StudentId" style="color: #4a89b0"><u>Read More</u></a>
+                                            }</i>
+                                            <br />
+                                            <br />
+                                            <label>Email: </label>
+                                            @item.User.Email
+                                            <br />
+                                            <label>Batch: </label>
+                                            @item.Batch
+                                            <br />
+                                            <label>Phone Number: </label>
+                                            @item.ContactNumber
+                                            <br/>
+                                            <a href="~/Public/CV/@item.StudentId" class="right" style="color:Blue; text-decoration:underline;right:0px">View Complete CV</a>
+                                        </p>
+                                    </figcaption>
+                                    <img src="~/Uploads/Images/@item.BasicInformation.Image" alt="@item.User.Name" />
+                                </figure>
+                            </li>
+                        }	
+					</ul>
+					<nav>
+						<span class="icon nav-prev"></span>
+						<span class="icon nav-next"></span>
+						<span class="icon nav-close"></span>
+					</nav>
+					<div class="info-keys icon">Navigate with arrow keys</div>
+				</section><!-- // slideshow -->
+			</div><!-- // grid-gallery -->
+		</div>
+		<script src="~/Content/grid/js/imagesloaded.pkgd.min.js"></script>
+		<script src="~/Content/grid/js/masonry.pkgd.min.js"></script>
+		<script src="~/Content/grid/js/classie.js"></script>
+		<script src="~/Content/grid/js/cbpGridGallery.js"></script>
+		<script>
+			new CBPGridGallery( document.getElementById( 'grid-gallery' ) );
+		</script>
+	</body>
+</html>
+

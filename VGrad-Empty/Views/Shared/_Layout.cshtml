@@ -21,7 +21,9 @@
     <!-- For Windows Phone -->
     <!-- CORE CSS-->
     <link href="~/Content/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="~/Content/css/style.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="~/Content/css/style.css" type="text/css" rel="stylesheet" media="screen,projection">   
+     <!-- jQuery Library -->
+    <script type="text/javascript" src="~/Content/js/jquery-1.11.2.min.js"></script>
 
 
     <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
@@ -47,7 +49,7 @@
         <div class="navbar-fixed">
             <nav class="cyan">
                 <div class="nav-wrapper">
-                    <h1 class="logo-wrapper"><a href="index.html" class="brand-logo darken-1"><img src="~/Content/images/materialize-logo.png" alt="materialize logo"></a> <span class="logo-text">Materialize</span></h1>
+                    <h1 class="logo-wrapper"><a href="@Url.Action("","Home")" class="brand-logo darken-1"><img src="~/Content/images/materialize-logo.png" alt="materialize logo"></a> <span class="logo-text">Materialize</span></h1>
                     
                 </div>
             </nav>
@@ -71,13 +73,6 @@
                             </div>
                             <div class="col col s8 m8 l8">
                                 <ul id="profile-dropdown" class="dropdown-content">
-                                    <li>
-                                        <a href="#"><i class="mdi-action-face-unlock"></i> Profile</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="mdi-action-settings"></i> Settings</a>
-                                    </li>
-                                    <li class="divider"></li>
                                     <li>
                                         <a href="~/Home/Logout"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
                                     </li>
@@ -151,7 +146,7 @@
                     else
                     {
                         <li class="bold">
-                            <a href="~/Home/PersonalInformation" class="waves-effect waves-cyan"><i class="mdi-action-assignment-ind"></i> Personal Information</a>
+                            <a href="~/Public/CV/@Session["UserId"]" class="waves-effect waves-cyan"><i class="mdi-action-assignment-ind"></i>View CV</a>
                         </li>
                         <li class="bold">
                             <a href="~/Educations" class="waves-effect waves-cyan"><i class="mdi-social-school"></i> Educational Information</a>
@@ -228,8 +223,6 @@
     <!-- ================================================
     Scripts
     ================================================ -->
-    <!-- jQuery Library -->
-    <script type="text/javascript" src="~/Content/js/jquery-1.11.2.min.js"></script>
     <!--materialize js-->
     <script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
     <!--scrollbar-->

@@ -1,16 +1,18 @@
 ﻿@model IEnumerable<VGrad_Empty.Models.OtherProject>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "My Projects";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
+<h2>My Projects</h2>
+For Authenticity purposes we can't allow students to add <b>Final Year Projects</b>, it could only be added by Compitent authority. Try contacting your Co-ordinator. 
+<br/>
+Meanwhile you can add your other projects you have done so far.
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add More", "Create", "OtherProjects", htmlAttributes: new { @class = "btn btn-default right" })
 </p>
-<table class="table">
+<table class="table hoverable bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Title)

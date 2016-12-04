@@ -17,12 +17,21 @@ namespace VGrad_Empty.Controllers
         // GET: OtherProjects
         public ActionResult Index()
         {
-            return View(db.OtherProjects.ToList());
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            int userId = Convert.ToInt32(Session["UserId"]);
+            return View(db.OtherProjects.Include("Student").Where(s => s.Student.User.UserId == userId).ToList());
         }
 
         // GET: OtherProjects/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,6 +47,10 @@ namespace VGrad_Empty.Controllers
         // GET: OtherProjects/Create
         public ActionResult Create()
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
 
@@ -48,9 +61,20 @@ namespace VGrad_Empty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "OtherProjectId,Title,Description,Organization")] OtherProject otherProject)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (ModelState.IsValid)
             {
-                db.OtherProjects.Add(otherProject);
+                int userId = Convert.ToInt32(Session["UserId"]);
+                var student = db.Students.Where(s => s.User.UserId == userId).FirstOrDefault();
+                if (student == null)
+                {
+                    TempData["msg"] = "No student information found!";
+                    return RedirectToAction("Login", "Home");
+                }
+                student.OtherProjects.Add(otherProject);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -61,11 +85,22 @@ namespace VGrad_Empty.Controllers
         // GET: OtherProjects/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            OtherProject otherProject = db.OtherProjects.Find(id);
+            int userId = Convert.ToInt32(Session["UserId"]);
+            OtherProject otherProject = db.OtherProjects.Include("Student").Where(s => s.OtherProjectId == id).FirstOrDefault();
+
+            if (otherProject.Student.User.UserId != userId)
+            {
+                TempData["msg"] = "Kindly login with connected account";
+                RedirectToAction("Login", "Home");
+            }
             if (otherProject == null)
             {
                 return HttpNotFound();
@@ -80,6 +115,10 @@ namespace VGrad_Empty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "OtherProjectId,Title,Description,Organization")] OtherProject otherProject)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(otherProject).State = EntityState.Modified;
@@ -92,11 +131,22 @@ namespace VGrad_Empty.Controllers
         // GET: OtherProjects/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            OtherProject otherProject = db.OtherProjects.Find(id);
+            int userId = Convert.ToInt32(Session["UserId"]);
+            OtherProject otherProject = db.OtherProjects.Include("Student").Where(s => s.OtherProjectId == id).FirstOrDefault();
+
+            if (otherProject.Student.User.UserId != userId)
+            {
+                TempData["msg"] = "Kindly login with connected account";
+                RedirectToAction("Login", "Home");
+            }
             if (otherProject == null)
             {
                 return HttpNotFound();
@@ -109,7 +159,18 @@ namespace VGrad_Empty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            OtherProject otherProject = db.OtherProjects.Find(id);
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            int userId = Convert.ToInt32(Session["UserId"]);
+            OtherProject otherProject = db.OtherProjects.Include("Student").Where(s => s.OtherProjectId == id).FirstOrDefault();
+
+            if (otherProject.Student.User.UserId != userId)
+            {
+                TempData["msg"] = "Kindly login with connected account";
+                RedirectToAction("Login", "Home");
+            }
             db.OtherProjects.Remove(otherProject);
             db.SaveChanges();
             return RedirectToAction("Index");

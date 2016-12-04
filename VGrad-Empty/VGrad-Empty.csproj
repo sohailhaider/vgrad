@@ -97,6 +97,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\grid\css\component.css" />
+    <Content Include="Content\grid\css\demo.css" />
+    <Content Include="Content\grid\js\cbpGridGallery.js" />
+    <Content Include="Content\grid\js\classie.js" />
+    <Content Include="Content\grid\js\imagesloaded.pkgd.min.js" />
+    <Content Include="Content\grid\js\masonry.pkgd.min.js" />
+    <Content Include="Content\grid\js\modernizr.custom.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -106,6 +113,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OtherProjectsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\PublicController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -157,6 +165,12 @@
     <Content Include="Views\Educations\Details.cshtml" />
     <Content Include="Views\Educations\Edit.cshtml" />
     <Content Include="Views\Educations\Index.cshtml" />
+    <Content Include="Views\Home\AddBasicInformation.cshtml" />
+    <Content Include="Views\Home\EditBasicInformation.cshtml" />
+    <Content Include="Views\Public\Index.cshtml" />
+    <Content Include="Content\grid\css\.DS_Store" />
+    <Content Include="Views\Home\SignUp.cshtml" />
+    <Content Include="Views\Public\CV.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -167,9 +181,15 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\css\" />
+    <Folder Include="Content\CV\css\" />
+    <Folder Include="Content\CV\img\" />
+    <Folder Include="Content\CV\js\" />
     <Folder Include="Content\font\" />
+    <Folder Include="Content\grid\fonts\" />
+    <Folder Include="Content\grid\img\" />
     <Folder Include="Content\images\" />
     <Folder Include="Content\js\" />
+    <Folder Include="Uploads\Images\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,248 @@
+﻿@model VGrad_Empty.Models.Student
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ===========================
+    THEME INFO
+    =========================== -->
+    <meta name="description" content="CVstrap is another Free minimal CV HTML theme by EvenFly built with Bootstrap 3.3.0. and released under CC-3.0 license.">
+    <meta name="keywords" content="curriculum vitae, cv, one page, onepage, bootstrap, responsive, resume, timeline, free cv">
+    <meta name="author" content="Mamun Srizon">
+
+    <!-- ===========================
+    SITE TITLE
+    =========================== -->
+    <title>@Model.User.Name - VGrad Directory</title>
+
+    <!-- ===========================
+    FAVICONS
+    =========================== -->
+    <link rel="icon" href="~/Content/CV/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="~/Content/CV/img/apple-touch-icon-ipad-retina.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="~/Content/CV/img/apple-touch-icon-iphone-retina.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="~/Content/CV/img/apple-touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="~/Content/CV/img/apple-touch-icon-iphone.png" />
+
+    <!-- ===========================
+    STYLESHEETS
+    =========================== -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/CV/css/style.css">
+    <link rel="stylesheet" href="~/Content/CV/css/responsive.css">
+
+    <!-- ===========================
+    FONTS & ICONS
+    =========================== -->
+    <link href='//fonts.googleapis.com/css?family=Kristi|Alegreya+Sans:300' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+    <!--[if IE]>
+        <script src="https://cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="container">
+        <!-- ===========================
+        HEADER
+        ============================ -->
+        <div id="header" class="row">
+            <div class="col-sm-2">
+                <img class="propic" src="~/Uploads/Images/@Model.BasicInformation.Image" alt="">
+            </div>
+            <!-- photo end-->
+
+            <div class="col-sm-10">
+                <div class="cv-title">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <h1>@Model.User.Name</h1>
+                        </div>
+                        <div class="col-sm-5 text-right dl-share">
+                            <!-- AddToAny BEGIN -->
+                            <a class="a2a_dd btn btn-default" href="@Url.Action("Index","Public")"><span class="fa fa-share "></span> Back To Home</a>
+                                @if(Session["UserType"] == null)
+                                {
+                                    <a class="btn btn-success" href="@Url.Action("Login","Home")">LOGIN</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-success" href="@Url.Action("","Home")">DASHBOARD</a>
+                                }
+                            <!-- AddToAny END -->
+
+                        </div>
+                    </div>
+                    <h2>Father Name: @Model.BasicInformation.FatherName</h2>
+                </div><!-- Title end-->
+                <!-- ===========================
+                SOCIAL & CONTACT
+                ============================ -->
+                <div class="row">
+                    <div class="col-sm-4">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="~/Public?search=@Model.Batch"><span class="social fa fa-home"></span>Batch: @Model.Batch</a>
+                            </li>
+                        </ul>
+                    </div><!-- social 1st col end-->
+
+                    <div class="col-sm-4">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href=""><span class="social fa fa-skype"></span>@Model.ContactNumber</a>
+                            </li>
+                        </ul>
+                    </div><!-- social 2nd col end-->
+
+                    <div class="col-sm-4">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="mailto:@Model.User.Email"><span class="social fa fa-envelope-o"></span>@Model.User.Email</a>
+                            </li>
+                        </ul>
+                    </div><!-- social 3rd col end-->
+                </div><!-- header social end-->
+            </div><!-- header right end-->
+        </div><!-- header end-->
+
+        <hr class="firsthr">
+
+        <!-- ===========================
+        BODY LEFT PART
+        ============================ -->
+        <div class="col-md-8 mainleft">
+            <div id="statement" class="row mobmid">
+                <div class="col-sm-1">
+                    <span class="secicon fa fa-user"></span>
+                </div><!--icon end-->
+
+                <div class="col-sm-11">
+                    <h3>Personal statement </h3>
+                    <p>@Model.BasicInformation.Introduction</p>
+                    <p class="signature">@Model.User.Name</p>
+                </div><!--info end-->
+            </div><!--personal statement end-->
+
+            <hr>
+
+            <div id="education" class="row mobmid">
+                <div class="col-sm-1">
+                    <span class="secicon fa fa-graduation-cap"></span>
+                </div><!--icon end-->
+
+                <div class="col-sm-11">
+                    <h3>Education &amp; Certification</h3>
+                    @foreach (var item in Model.Educations)
+                    {
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h4>@item.Title</h4>
+                                <p class="sub">
+                                    <a href="">@item.College</a>
+                                </p>
+                            </div>
+
+                            <div class="year col-md-3">
+                                <p>@item.StartDate.Month, @item.StartDate.Year-@item.EndDate.Month, @item.EndDate.Year</p>
+                            </div>
+                        </div>
+                    }
+
+                    <!--Education & Certification 1 end-->
+                </div>
+            </div><!--Education & Certifications end-->
+            <hr>
+
+            <!-- ===========================
+    JOB EXPERIENCES
+    ============================ -->
+            <div id="job" class="row mobmid">
+                <div class="col-sm-1">
+                    <span class="secicon fa fa-briefcase"></span>
+                </div><!--icon end-->
+
+                <div class="col-sm-11">
+                    <h3>Projects</h3>
+                    @foreach (var project in Model.OtherProjects)
+                    {
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h4>@project.Title</h4>
+                                <p class="sub">
+                                    <a href="">@project.Organization</a>
+                                </p>
+                                <p>@project.Description</p>
+                            </div>
+
+                        </div>
+                    }
+                    <!--Job 1 end-->
+                </div><!--Job experiences end-->
+            </div><!--Job experiences end-->
+        </div><!--left end-->
+        <!-- ===========================
+    SIDEBAR
+    =========================== -->
+        <div class="col-md-4 mainright">
+
+            <div class="row mobmid">
+                <div class="col-sm-1 col-md-2">
+                    <span class="secicon fa fa-trophy"></span>
+                </div><!--icon end-->
+
+                <div class="col-sm-11 col-md-10 ">
+                    <h3>Final Year Project</h3>
+                    @if (@Model.Project != null)
+                    {
+                        <div class="award">
+                            <h2>@Model.Project.Title</h2>
+                            <p class="sub">@Model.Project.SupervisorName</p>
+                            <p>@Model.Project.ProjectDescription</p>
+                            <b>Members:</b>
+                            <ul>
+                                @foreach(var i in Model.Project.GroupMembers)
+                                {
+                                    <li>
+                                        <a href="~/Public/CV/@i.StudentId">@i.User.Name</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="award">
+                            <h2>Not Enrolled yet</h2>
+                        </div>
+                    }
+                    <!--1st award end-->
+
+                </div><!--awards end-->
+
+            </div>
+
+        </div><!--right end-->
+    </div><!--container end-->
+
+    <!--necessary scripts and plugins-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="~/Content/CV/js/jquery.nicescroll.min.js"></script>
+    <script src="~/Content/CV/js/evenfly.js"></script>
+</body>
+
+</html>

@@ -18,6 +18,7 @@ namespace VGrad_Empty.Models
 
         [Required]
         [Display(Name ="Your Introduction")]
+        [DataType(DataType.MultilineText)]
         public string Introduction { get; set; }
     }
 }

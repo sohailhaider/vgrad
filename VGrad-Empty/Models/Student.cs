@@ -34,7 +34,7 @@ namespace VGrad_Empty.Models
 
         public virtual User User { get; set; }
         public Project Project { get; set; }
-        public BasicInformation BasicInformation { get; set; }
+        public virtual BasicInformation BasicInformation { get; set; }
         public List<OtherProject> OtherProjects { get; set; }
         public List<Education> Educations { get; set; }
     }

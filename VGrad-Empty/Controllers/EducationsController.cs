@@ -138,7 +138,14 @@ namespace VGrad_Empty.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Education education = db.Educations.Find(id);
+            int userId = Convert.ToInt32(Session["UserId"]);
+            Education education = db.Educations.Include("Student").Where(s => s.EducationId == id).FirstOrDefault();
+
+            if (education.Student.User.UserId != userId)
+            {
+                TempData["msg"] = "Kindly login with connected account";
+                RedirectToAction("Login", "Home");
+            }
             if (education == null)
             {
                 return HttpNotFound();
@@ -155,7 +162,14 @@ namespace VGrad_Empty.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-            Education education = db.Educations.Find(id);
+            int userId = Convert.ToInt32(Session["UserId"]);
+            Education education = db.Educations.Include("Student").Where(s => s.EducationId == id).FirstOrDefault();
+
+            if (education.Student.User.UserId != userId)
+            {
+                TempData["msg"] = "Kindly login with connected account";
+                RedirectToAction("Login", "Home");
+            }
             db.Educations.Remove(education);
             db.SaveChanges();
             return RedirectToAction("Index");
