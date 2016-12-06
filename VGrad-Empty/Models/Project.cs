@@ -17,7 +17,7 @@ namespace VGrad_Empty.Models
         public string Title { get; set; }
         [Required]
         [DataType(DataType.MultilineText)]
-        [Display(Name ="Project Description")]
+        [Display(Name = "Project Description")]
         public string ProjectDescription { get; set; }
         [Required]
         [Display(Name = "Supervisor Name")]

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using VGrad_Empty.Models;
 using VGrad_Empty.Models.ViewModels;
@@ -246,6 +247,29 @@ namespace VGrad_Empty.Controllers
                 return RedirectToAction("Login", "Home");
             }
             return View(model);
+        }
+
+
+        [HttpPost]
+        public ActionResult CreateNew(User model)
+        {
+            if (ModelState.IsValid)
+            {
+                var password = MD5Hasher.Encrypt(model.Password, "vgrad");
+                var user = db.Users.Where(s => s.Email.Equals(model.Email, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                if (user != null)
+                {
+                    TempData["msg"] = "Email Address already exists, try new.";
+                    return View(model);
+                }
+                model.Password = password;
+                //model.Type = mode;
+                model.Status = false;
+                db.Users.Add(model);
+                db.SaveChanges();
+                return Json("UserCreated", JsonRequestBehavior.AllowGet);
+            }
+            return Json("Error Creating User", JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Logout()

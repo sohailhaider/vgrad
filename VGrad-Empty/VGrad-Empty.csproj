@@ -56,6 +56,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -97,13 +99,98 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\materialize.css" />
+    <Content Include="Content\css\page-center.css" />
+    <Content Include="Content\css\prism.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\CV\css\responsive.css" />
+    <Content Include="Content\CV\css\style.css" />
+    <Content Include="Content\CV\img\apple-touch-icon-ipad-retina.png" />
+    <Content Include="Content\CV\img\apple-touch-icon-ipad.png" />
+    <Content Include="Content\CV\img\apple-touch-icon-iphone-retina.png" />
+    <Content Include="Content\CV\img\apple-touch-icon-iphone.png" />
+    <Content Include="Content\CV\img\favicon.png" />
+    <Content Include="Content\CV\js\evenfly.js" />
+    <Content Include="Content\CV\js\jquery.nicescroll.min.js" />
+    <Content Include="Content\font\material-design-icons\Material-Design-Icons.svg" />
     <Content Include="Content\grid\css\component.css" />
     <Content Include="Content\grid\css\demo.css" />
+    <Content Include="Content\grid\fonts\bpicons\bpicons.svg" />
+    <Content Include="Content\grid\fonts\bpicons\license.txt" />
+    <Content Include="Content\grid\fonts\fontawesome\fontawesome.svg" />
+    <Content Include="Content\grid\img\large\1.png" />
+    <Content Include="Content\grid\img\large\2.png" />
+    <Content Include="Content\grid\img\large\3.png" />
+    <Content Include="Content\grid\img\large\4.png" />
+    <Content Include="Content\grid\img\large\5.png" />
+    <Content Include="Content\grid\img\large\6.png" />
+    <Content Include="Content\grid\img\thumb\1.png" />
+    <Content Include="Content\grid\img\thumb\2.png" />
+    <Content Include="Content\grid\img\thumb\3.png" />
+    <Content Include="Content\grid\img\thumb\4.png" />
+    <Content Include="Content\grid\img\thumb\5.png" />
+    <Content Include="Content\grid\img\thumb\6.png" />
     <Content Include="Content\grid\js\cbpGridGallery.js" />
     <Content Include="Content\grid\js\classie.js" />
     <Content Include="Content\grid\js\imagesloaded.pkgd.min.js" />
     <Content Include="Content\grid\js\masonry.pkgd.min.js" />
     <Content Include="Content\grid\js\modernizr.custom.js" />
+    <Content Include="Content\images\avatar.jpg" />
+    <Content Include="Content\images\favicon\apple-touch-icon-152x152.png" />
+    <Content Include="Content\images\favicon\favicon-32x32.png" />
+    <Content Include="Content\images\generic-logo.png" />
+    <Content Include="Content\images\login-logo.png" />
+    <Content Include="Content\images\materialize-logo.png" />
+    <Content Include="Content\images\office.jpg" />
+    <Content Include="Content\images\sample-1.jpg" />
+    <Content Include="Content\images\signature-scan.png" />
+    <Content Include="Content\images\style_typography_roboto.png" />
+    <Content Include="Content\images\user-bg.jpg" />
+    <Content Include="Content\js\jquery-1.11.2.min.js" />
+    <Content Include="Content\js\materialize.js" />
+    <Content Include="Content\js\materialize.min.js" />
+    <Content Include="Content\js\plugins.js" />
+    <Content Include="Content\js\plugins\chartist-js\chartist-script.js" />
+    <Content Include="Content\js\plugins\chartist-js\chartist.min.css" />
+    <Content Include="Content\js\plugins\chartist-js\chartist.min.js" />
+    <Content Include="Content\js\plugins\chartjs\chart-script.js" />
+    <Content Include="Content\js\plugins\chartjs\chart.min.js" />
+    <Content Include="Content\js\plugins\chartjs\chartjs-sample-chart.js" />
+    <Content Include="Content\js\plugins\d3\d3.min.js" />
+    <Content Include="Content\js\plugins\data-tables\css\jquery.dataTables.min.css" />
+    <Content Include="Content\js\plugins\data-tables\data-tables-script.js" />
+    <Content Include="Content\js\plugins\data-tables\images\sort_asc.png" />
+    <Content Include="Content\js\plugins\data-tables\images\sort_asc_disabled.png" />
+    <Content Include="Content\js\plugins\data-tables\images\sort_both.png" />
+    <Content Include="Content\js\plugins\data-tables\images\sort_desc.png" />
+    <Content Include="Content\js\plugins\data-tables\images\sort_desc_disabled.png" />
+    <Content Include="Content\js\plugins\data-tables\js\jquery.dataTables.min.js" />
+    <Content Include="Content\js\plugins\flot-chart\flot-script.js" />
+    <Content Include="Content\js\plugins\flot-chart\jquery.flot.min.js" />
+    <Content Include="Content\js\plugins\flot-chart\jquery.flot.pie.js" />
+    <Content Include="Content\js\plugins\flot-chart\jquery.flot.stack.js" />
+    <Content Include="Content\js\plugins\flot-chart\jquery.flot.time.js" />
+    <Content Include="Content\js\plugins\fullcalendar\css\fullcalendar.min.css" />
+    <Content Include="Content\js\plugins\fullcalendar\fullcalendar-script.js" />
+    <Content Include="Content\js\plugins\fullcalendar\js\fullcalendar.min.js" />
+    <Content Include="Content\js\plugins\fullcalendar\lib\jquery-ui.custom.min.js" />
+    <Content Include="Content\js\plugins\fullcalendar\lib\moment.min.js" />
+    <Content Include="Content\js\plugins\jvectormap\jquery-jvectormap-1.2.2.min.js" />
+    <Content Include="Content\js\plugins\jvectormap\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="Content\js\plugins\jvectormap\jquery-jvectormap.css" />
+    <Content Include="Content\js\plugins\jvectormap\vectormap-script.js" />
+    <Content Include="Content\js\plugins\morris-chart\morris-script.js" />
+    <Content Include="Content\js\plugins\morris-chart\morris.css" />
+    <Content Include="Content\js\plugins\morris-chart\morris.min.js" />
+    <Content Include="Content\js\plugins\perfect-scrollbar\perfect-scrollbar.css" />
+    <Content Include="Content\js\plugins\perfect-scrollbar\perfect-scrollbar.min.js" />
+    <Content Include="Content\js\plugins\sparkline\jquery.sparkline.min.js" />
+    <Content Include="Content\js\plugins\sparkline\sparkline-script.js" />
+    <Content Include="Content\js\plugins\xcharts\xcharts-script.js" />
+    <Content Include="Content\js\plugins\xcharts\xcharts.min.css" />
+    <Content Include="Content\js\plugins\xcharts\xcharts.min.js" />
+    <Content Include="Content\js\prism.js" />
+    <Content Include="Content\js\raphael-min.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -128,9 +215,9 @@
     <Compile Include="Models\OtherProject.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\Student.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Models\ViewModels\StudentToProjectViewModel.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +258,32 @@
     <Content Include="Content\grid\css\.DS_Store" />
     <Content Include="Views\Home\SignUp.cshtml" />
     <Content Include="Views\Public\CV.cshtml" />
+    <Content Include="Content\grid\fonts\bpicons\bpicons.eot" />
+    <Content Include="Content\grid\fonts\bpicons\bpicons.ttf" />
+    <Content Include="Content\grid\fonts\bpicons\bpicons.woff" />
+    <Content Include="Content\grid\fonts\fontawesome\.DS_Store" />
+    <Content Include="Content\grid\fonts\fontawesome\fontawesome.eot" />
+    <Content Include="Content\grid\fonts\fontawesome\fontawesome.ttf" />
+    <Content Include="Content\grid\fonts\fontawesome\fontawesome.woff" />
+    <Content Include="Content\grid\img\.DS_Store" />
+    <Content Include="Content\grid\img\large\.DS_Store" />
+    <Content Include="Content\grid\img\thumb\.DS_Store" />
+    <Content Include="Content\grid\js\.DS_Store" />
+    <Content Include="Content\font\material-design-icons\Material-Design-Icons.eot_" />
+    <Content Include="Content\font\material-design-icons\Material-Design-Icons.ttf" />
+    <Content Include="Content\font\material-design-icons\Material-Design-Icons.woff" />
+    <Content Include="Content\font\roboto\Roboto-Bold.ttf" />
+    <Content Include="Content\font\roboto\Roboto-Bold.woff" />
+    <Content Include="Content\font\roboto\Roboto-Light.ttf" />
+    <Content Include="Content\font\roboto\Roboto-Light.woff" />
+    <Content Include="Content\font\roboto\Roboto-Medium.ttf" />
+    <Content Include="Content\font\roboto\Roboto-Medium.woff" />
+    <Content Include="Content\font\roboto\Roboto-Regular.ttf" />
+    <Content Include="Content\font\roboto\Roboto-Regular.woff" />
+    <Content Include="Content\font\roboto\Roboto-Thin.ttf" />
+    <Content Include="Content\font\roboto\Roboto-Thin.woff" />
+    <None Include="Properties\PublishProfiles\vgrad - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\vgrad - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -180,16 +293,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\css\" />
-    <Folder Include="Content\CV\css\" />
-    <Folder Include="Content\CV\img\" />
-    <Folder Include="Content\CV\js\" />
-    <Folder Include="Content\font\" />
-    <Folder Include="Content\grid\fonts\" />
-    <Folder Include="Content\grid\img\" />
-    <Folder Include="Content\images\" />
-    <Folder Include="Content\js\" />
     <Folder Include="Uploads\Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

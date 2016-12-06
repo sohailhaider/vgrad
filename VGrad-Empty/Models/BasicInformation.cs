@@ -11,13 +11,13 @@ namespace VGrad_Empty.Models
         [Key]
         public int BasicInformationID { get; set; }
         [Required]
-        [Display(Name ="Father Name")]
+        [Display(Name = "Father Name")]
         public string FatherName { get; set; }
-        
+
         public string Image { get; set; }
 
         [Required]
-        [Display(Name ="Your Introduction")]
+        [Display(Name = "Your Introduction")]
         [DataType(DataType.MultilineText)]
         public string Introduction { get; set; }
     }

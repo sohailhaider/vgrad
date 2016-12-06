@@ -21,13 +21,13 @@ namespace VGrad_Empty.Models
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name ="Start Date")]
+        [Display(Name = "Start Date")]
         public DateTime StartDate { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name ="End Date")]
+        [Display(Name = "End Date")]
         public DateTime EndDate { get; set; }
 
         public Student Student { get; set; }

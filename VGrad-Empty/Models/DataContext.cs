@@ -6,7 +6,7 @@ using System.Web;
 
 namespace VGrad_Empty.Models
 {
-    public class DataContext: DbContext
+    public class DataContext : DbContext
     {
         public DataContext()
         : base("VGradDB")

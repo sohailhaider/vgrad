@@ -16,7 +16,7 @@ namespace VGrad_Empty.Models
 
         }
         [Key, ForeignKey("User")]
-        [Display(Name ="User Account")]
+        [Display(Name = "User Account")]
         public int StudentId { get; set; }
         [Required]
         public string Batch { get; set; }
@@ -27,9 +27,9 @@ namespace VGrad_Empty.Models
         public DateTime GraduationDate { get; set; }
         [Required]
         [DataType(DataType.PhoneNumber)]
-        [Display(Name ="Contact Number")]
+        [Display(Name = "Contact Number")]
         public string ContactNumber { get; set; }
-        [Display(Name ="Employeement Status")]
+        [Display(Name = "Employeement Status")]
         public EmployementStatus Employeement { get; set; }
 
         public virtual User User { get; set; }
